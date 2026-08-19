@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% if seo %}
+        <title>{{ seo.title }}</title>
+        <meta name="title" content="{{ seo.title }}">
+        <meta name="description" content="{{ seo.description }}">
+        <meta name="robots" content="{{ seo.robots }}">
+        <link rel="canonical" href="{{ seo.canonical_url }}">
+
+        <meta property="og:type" content="{{ seo.og_type }}">
+        <meta property="og:url" content="{{ seo.og_url }}">
+        <meta property="og:title" content="{{ seo.og_title }}">
+        <meta property="og:description" content="{{ seo.og_description }}">
+        <meta property="og:image" content="{{ seo.og_image }}">
+        <meta property="og:site_name" content="{{ seo.og_site_name }}">
+
+        <meta name="twitter:card" content="{{ seo.twitter_card }}">
+        <meta name="twitter:site" content="{{ seo.twitter_site }}">
+        <meta name="twitter:title" content="{{ seo.twitter_title }}">
+        <meta name="twitter:description" content="{{ seo.twitter_description }}">
+        <meta name="twitter:image" content="{{ seo.twitter_image }}">
+
+        <link rel="alternate" hreflang="en" href="{{ seo.canonical_url }}">
+        <link rel="alternate" hreflang="x-default" href="{{ seo.canonical_url }}">
+
+        {% if structured_data %}
+            {% for schema in structured_data %}
+                <script type="application/ld+json">{{ schema | tojson }}</script>
+            {% endfor %}
+        {% endif %}
+    {% else %}
+        <title>Page Not Found | Pyramid Solutions</title>
+        <meta name="description" content="The page you're looking for doesn't exist. Return to Pyramid Solutions homepage for HR consulting, recruitment, and outsourcing services.">
+        <meta name="robots" content="noindex, follow">
+        <link rel="canonical" href="https://pyramidsolutions.com/">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://pyramidsolutions.com/">
+        <meta property="og:title" content="Page Not Found | Pyramid Solutions">
+        <meta property="og:description" content="The requested page was not found. Return to our homepage for HR solutions.">
+        <meta property="og:image" content="https://pyramidsolutions.com/static/images/og-default.jpg">
+        <meta property="og:site_name" content="Pyramid Solutions">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@pyramidsolutions">
+        <meta name="twitter:title" content="Page Not Found | Pyramid Solutions">
+        <meta name="twitter:description" content="The requested page was not found. Return to our homepage for HR solutions.">
+        <meta name="twitter:image" content="https://pyramidsolutions.com/static/images/og-default.jpg">
+    {% endif %}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f7f7f7; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .container { text-align: center; max-width: 400px; }
+        .code { font-size: 120px; font-weight: 700; color: #ff385c; line-height: 1; margin-bottom: 20px; }
+        h1 { font-size: 28px; color: #222; margin-bottom: 12px; }
+        p { color: #6a6a6a; margin-bottom: 24px; line-height: 1.6; }
+        a { display: inline-block; background: #ff385c; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: background 0.2s; }
+        a:hover { background: #e00b41; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="code">404</div>
+        <h1>Page Not Found</h1>
+        <p>The page you're looking for doesn't exist or has been moved.</p>
+        <a href="/">Back to Home</a>
+    </div>
+</body>
+</html>

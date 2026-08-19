@@ -1,0 +1,39 @@
+{
+  "name": "pyramid-solutions",
+  "version": "1.0.0",
+  "description": "Pyramid Solutions HR Consultancy - Vercel Deployable with SEO & Content Negotiation",
+  "main": "api/index.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build step required'",
+    "start": "node api/index.js",
+    "lint": "eslint ."
+  },
+  "keywords": [
+    "hr-consultancy",
+    "recruitment",
+    "outsourcing",
+    "bpo",
+    "hro",
+    "training",
+    "vercel",
+    "seo"
+  ],
+  "author": "Pyramid Solutions",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "compression": "^1.7.4",
+    "helmet": "^7.1.0",
+    "markdown-it": "^14.1.0",
+    "markdown-it-anchor": "^9.0.1",
+    "markdown-it-toc-done-right": "^4.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "vercel": "^34.1.0"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+}
