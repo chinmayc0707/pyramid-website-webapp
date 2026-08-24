@@ -91,7 +91,7 @@ def create_app():
                 "og_type": "website",
                 "og_title": "Strategic HR Consulting & Compliance | Pyramid Solutions",
                 "og_description": "Fractional HR leadership, compliance audits, organizational design, and HR technology advisory services.",
-                "canonical": f"{base_url}/#consulting",
+                "canonical": f"{base_url}/consulting",
                 "robots": "index, follow",
             },
             "recruitment": {
@@ -101,7 +101,7 @@ def create_app():
                 "og_type": "website",
                 "og_title": "Recruitment & Staffing Services | Pyramid Solutions",
                 "og_description": "Comprehensive recruitment solutions: permanent placement, executive search, contract staffing, and RPO services.",
-                "canonical": f"{base_url}/#recruitment",
+                "canonical": f"{base_url}/recruitment",
                 "robots": "index, follow",
             },
             "outsourcing": {
@@ -111,7 +111,7 @@ def create_app():
                 "og_type": "website",
                 "og_title": "BPO & HR Outsourcing Solutions | Pyramid Solutions",
                 "og_description": "Comprehensive outsourcing solutions: BPO, HRO, payroll, compliance, and talent outsourcing services.",
-                "canonical": f"{base_url}/#outsourcing",
+                "canonical": f"{base_url}/outsourcing",
                 "robots": "index, follow",
             },
             "training": {
@@ -121,7 +121,7 @@ def create_app():
                 "og_type": "website",
                 "og_title": "Professional HR Training & Certification Courses | Pyramid Solutions",
                 "og_description": "Upskill your workforce with HR certification, leadership development, soft skills, and compliance training programs.",
-                "canonical": f"{base_url}/#training",
+                "canonical": f"{base_url}/training",
                 "robots": "index, follow",
             },
             "stories": {
@@ -131,7 +131,7 @@ def create_app():
                 "og_type": "website",
                 "og_title": "Success Stories & Case Studies | Pyramid Solutions",
                 "og_description": "Client success stories: 40% faster hiring, 100% compliance, 60% turnover reduction, and more.",
-                "canonical": f"{base_url}/#stories",
+                "canonical": f"{base_url}/stories",
                 "robots": "index, follow",
             },
             "about": {
@@ -141,7 +141,7 @@ def create_app():
                 "og_type": "website",
                 "og_title": "About Pyramid Solutions | Our Mission, Values & Team",
                 "og_description": "Building exceptional teams and streamlined operations through strategic HR partnership.",
-                "canonical": f"{base_url}/#about",
+                "canonical": f"{base_url}/about",
                 "robots": "index, follow",
             },
             "faq": {
@@ -151,7 +151,7 @@ def create_app():
                 "og_type": "website",
                 "og_title": "Frequently Asked Questions | Pyramid Solutions",
                 "og_description": "Answers to common questions about HR consulting, recruitment, outsourcing, and training services.",
-                "canonical": f"{base_url}/#faq",
+                "canonical": f"{base_url}/faq",
                 "robots": "index, follow",
             },
             "contact": {
@@ -161,7 +161,7 @@ def create_app():
                 "og_type": "website",
                 "og_title": "Contact Us | Get Free HR Audit | Pyramid Solutions",
                 "og_description": "Get in touch for a free HR audit. Expert HR consulting, recruitment, and outsourcing solutions.",
-                "canonical": f"{base_url}/#contact",
+                "canonical": f"{base_url}/contact",
                 "robots": "index, follow",
             },
             "404": {
@@ -400,7 +400,7 @@ def create_app():
                     "@type": "EducationalOrganization",
                     "name": "Pyramid Solutions Training",
                     "description": "Professional HR training, certification courses, leadership development, and custom corporate training programs.",
-                    "url": f"{base_url}/#training",
+                    "url": f"{base_url}/training",
                 },
                 {
                     "@context": "https://schema.org",
@@ -466,7 +466,7 @@ def create_app():
                 "@type": "ListItem",
                 "position": 2,
                 "name": page_breadcrumbs[page],
-                "item": f"{base_url}/#{page}",
+                "item": f"{base_url}/{page}",
             })
 
         schemas.append(breadcrumb)
@@ -480,14 +480,14 @@ def create_app():
 
         urls = [
             {"loc": base_url, "lastmod": now, "changefreq": "weekly", "priority": "1.0"},
-            {"loc": f"{base_url}/#consulting", "lastmod": now, "changefreq": "monthly", "priority": "0.8"},
-            {"loc": f"{base_url}/#recruitment", "lastmod": now, "changefreq": "monthly", "priority": "0.8"},
-            {"loc": f"{base_url}/#outsourcing", "lastmod": now, "changefreq": "monthly", "priority": "0.8"},
-            {"loc": f"{base_url}/#training", "lastmod": now, "changefreq": "monthly", "priority": "0.8"},
-            {"loc": f"{base_url}/#stories", "lastmod": now, "changefreq": "monthly", "priority": "0.7"},
-            {"loc": f"{base_url}/#about", "lastmod": now, "changefreq": "yearly", "priority": "0.6"},
-            {"loc": f"{base_url}/#faq", "lastmod": now, "changefreq": "monthly", "priority": "0.6"},
-            {"loc": f"{base_url}/#contact", "lastmod": now, "changefreq": "yearly", "priority": "0.7"},
+            {"loc": f"{base_url}/consulting", "lastmod": now, "changefreq": "monthly", "priority": "0.8"},
+            {"loc": f"{base_url}/recruitment", "lastmod": now, "changefreq": "monthly", "priority": "0.8"},
+            {"loc": f"{base_url}/outsourcing", "lastmod": now, "changefreq": "monthly", "priority": "0.8"},
+            {"loc": f"{base_url}/training", "lastmod": now, "changefreq": "monthly", "priority": "0.8"},
+            {"loc": f"{base_url}/stories", "lastmod": now, "changefreq": "monthly", "priority": "0.7"},
+            {"loc": f"{base_url}/about", "lastmod": now, "changefreq": "yearly", "priority": "0.6"},
+            {"loc": f"{base_url}/faq", "lastmod": now, "changefreq": "monthly", "priority": "0.6"},
+            {"loc": f"{base_url}/contact", "lastmod": now, "changefreq": "yearly", "priority": "0.7"},
         ]
         return urls
 
@@ -599,6 +599,14 @@ def create_app():
             response.headers["Content-Type"] = "text/markdown; charset=utf-8"
             return response
 
+        if content_type == "application/json":
+            return {
+                "page": "index",
+                "format": "json",
+                "html_url": "/",
+                "markdown_url": "/api/content/index?format=markdown",
+            }
+
         # Default to HTML with SEO context
         seo_meta = get_seo_meta("index")
         structured_data = get_structured_data("index")
@@ -621,6 +629,14 @@ def create_app():
             response = make_response(md_content)
             response.headers["Content-Type"] = "text/markdown; charset=utf-8"
             return response
+
+        if content_type == "application/json":
+            return {
+                "page": page,
+                "format": "json",
+                "html_url": f"/{page}",
+                "markdown_url": f"/{page}?format=markdown",
+            }
 
         # Try to render HTML template with SEO
         try:
