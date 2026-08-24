@@ -224,6 +224,60 @@ function readTemplate(name) {
   return null;
 }
 
+function readHtmlTemplate(name) {
+  const templatePath = path.join(__dirname, 'templates', `${name}.html`);
+  if (fs.existsSync(templatePath)) {
+    return fs.readFileSync(templatePath, 'utf-8');
+  }
+  return null;
+}
+
+function generateSeoHead(pageData, pageName) {
+  const structuredData = generateStructuredData(pageData, pageName);
+  return `<!-- Primary Meta Tags -->
+    <title>${escapeHtml(pageData.title)}</title>
+    <meta name="title" content="${escapeHtml(pageData.title)}">
+    <meta name="description" content="${escapeHtml(pageData.description)}">
+    <meta name="keywords" content="${escapeHtml(pageData.keywords)}">
+    <meta name="author" content="${SITE_CONFIG.name}">
+    <meta name="robots" content="index, follow">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="${SITE_CONFIG.url}${pageData.canonical}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="${SITE_CONFIG.url}${pageData.canonical}">
+    <meta property="og:title" content="${escapeHtml(pageData.title)}">
+    <meta property="og:description" content="${escapeHtml(pageData.description)}">
+    <meta property="og:image" content="${SITE_CONFIG.url}${SITE_CONFIG.ogImage}">
+    <meta property="og:site_name" content="${SITE_CONFIG.name}">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="${SITE_CONFIG.twitterHandle}">
+    <meta name="twitter:title" content="${escapeHtml(pageData.title)}">
+    <meta name="twitter:description" content="${escapeHtml(pageData.description)}">
+    <meta name="twitter:image" content="${SITE_CONFIG.url}${SITE_CONFIG.ogImage}">
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#ff385c">
+    <meta name="msapplication-TileColor" content="#ff385c">
+    <link rel="icon" type="image/svg+xml" href="/static/logo.svg">
+    <link rel="manifest" href="/static/site.webmanifest">
+
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+${JSON.stringify(structuredData, null, 2)}
+    </script>`;
+}
+
 function renderMarkdown(templateName, data = {}) {
   const template = readTemplate(templateName);
   if (!template) return null;
@@ -234,11 +288,61 @@ function renderMarkdown(templateName, data = {}) {
     const placeholder = new RegExp(`\\{\\{\\s*${key}\\s*\\}\\}`, 'g');
     content = content.replace(placeholder, String(value));
   }
+
+  // Pre-process markdown link class annotations e.g. [Text](url){.btn-primary .extra}
+  content = content.replace(/\[([^\]]+)\]\(([^)]+)\)\{([^{}]+)\}/g, (match, text, href, attr) => {
+    const classes = attr
+      .split(/\s+/)
+      .filter(c => c.startsWith('.'))
+      .map(c => c.slice(1))
+      .join(' ');
+    if (classes) {
+      return `<a href="${href}" class="${classes}">${text}</a>`;
+    }
+    return match;
+  });
+
   return md.render(content);
 }
 
 function renderHTML(templateName, data = {}) {
   const pageData = PAGES[templateName] || PAGES.index;
+
+  // 1. Direct index.html rendering (Full single-page application)
+  if (templateName === 'index') {
+    let indexHtml = readHtmlTemplate('index');
+    if (indexHtml) {
+      // Replace Jinja SEO block with generated SEO head
+      indexHtml = indexHtml.replace(/{%\s*if\s+seo\s*%}[\s\S]*?{%\s*endif\s*%}/, generateSeoHead(pageData, 'index'));
+      return indexHtml;
+    }
+  }
+
+  // 2. Specific page HTML template (extends base.html)
+  const pageHtml = readHtmlTemplate(templateName);
+  const baseHtml = readHtmlTemplate('base');
+
+  if (pageHtml && baseHtml) {
+    const contentMatch = pageHtml.match(/{%\s*block\s+content\s*%}([\s\S]*?){%\s*endblock\s*%}/);
+    const content = contentMatch ? contentMatch[1] : pageHtml;
+
+    let fullHtml = baseHtml.replace(/{%\s*block\s+content\s*%}{%\s*endblock\s*%}/, content);
+    fullHtml = fullHtml.replace(/{%\s*if\s+seo\s*%}[\s\S]*?{%\s*endif\s*%}/, generateSeoHead(pageData, templateName));
+    fullHtml = fullHtml.replace(/{%\s*block\s+extra_head\s*%}{%\s*endblock\s*%}/, '');
+    fullHtml = fullHtml.replace(/{%\s*block\s+scripts\s*%}{%\s*endblock\s*%}/, '');
+
+    // Set active nav tabs
+    fullHtml = fullHtml.replace(/{%\s*if\s+active_page\s*==\s*'([^']+)'\s*%}active{%\s*endif\s*%}/g, (match, page) => {
+      return page === templateName ? 'active' : '';
+    });
+    fullHtml = fullHtml.replace(/{%\s*if\s+active_page\s*==\s*'faq'\s*%}style="font-weight:\s*var\(--fw-bold\);"{%\s*endif\s*%}/g, () => {
+      return templateName === 'faq' ? 'style="font-weight: var(--fw-bold);"' : '';
+    });
+
+    return fullHtml;
+  }
+
+  // 3. Fallback: Markdown rendering with layout wrapper
   const markdownContent = renderMarkdown(templateName, data);
 
   return `<!DOCTYPE html>
@@ -246,33 +350,7 @@ function renderHTML(templateName, data = {}) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="${escapeHtml(pageData.description)}">
-  <meta name="keywords" content="${escapeHtml(pageData.keywords)}">
-  <meta name="author" content="${SITE_CONFIG.name}">
-  <link rel="canonical" href="${SITE_CONFIG.url}${pageData.canonical}">
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="${SITE_CONFIG.url}${pageData.canonical}">
-  <meta property="og:title" content="${escapeHtml(pageData.title)}">
-  <meta property="og:description" content="${escapeHtml(pageData.description)}">
-  <meta property="og:image" content="${SITE_CONFIG.url}${SITE_CONFIG.ogImage}">
-  <meta property="og:site_name" content="${SITE_CONFIG.name}">
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="${SITE_CONFIG.url}${pageData.canonical}">
-  <meta property="twitter:title" content="${escapeHtml(pageData.title)}">
-  <meta property="twitter:description" content="${escapeHtml(pageData.description)}">
-  <meta property="twitter:image" content="${SITE_CONFIG.url}${SITE_CONFIG.ogImage}">
-  <meta property="twitter:site" content="${SITE_CONFIG.twitterHandle}">
-
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json">
-  ${JSON.stringify(generateStructuredData(pageData, templateName), null, 2)}
-  </script>
-
-  <title>${escapeHtml(pageData.title)}</title>
+  ${generateSeoHead(pageData, templateName)}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -281,10 +359,13 @@ function renderHTML(templateName, data = {}) {
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  ${renderHeader()}
+  ${renderHeader(templateName)}
   <main id="main-content">
-    ${markdownContent || '<div class="container"><h1>Page Not Found</h1><p>The requested page could not be found.</p></div>'}
+    ${markdownContent ? `<div class="container markdown-content reveal">${markdownContent}</div>` : '<div class="container markdown-content"><h1>Page Not Found</h1><p>The requested page could not be found.</p></div>'}
   </main>
+  <a href="/contact" class="float-contact" aria-label="Contact Us">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
   ${renderFooter()}
   <script src="/static/app.js" defer></script>
 </body>
@@ -293,10 +374,10 @@ function renderHTML(templateName, data = {}) {
 
 function escapeHtml(text) {
   return String(text)
-    .replace(/&/g, '&')
-    .replace(/</g, '<')
-    .replace(/>/g, '>')
-    .replace(/"/g, '"')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
 }
 
@@ -401,9 +482,9 @@ function generateStructuredData(pageData, pageName) {
   };
 }
 
-function renderHeader() {
+function renderHeader(activePage = 'index') {
   return `
-<header class="top-nav" role="banner">
+<header class="top-nav" id="topNav" role="banner">
   <a href="/" class="nav-brand" aria-label="${SITE_CONFIG.name} Home">
     <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M18 2L34 30H2L18 2Z" fill="currentColor" opacity="0.9"/>
@@ -412,31 +493,53 @@ function renderHeader() {
     <span>${SITE_CONFIG.name}</span>
   </a>
   <nav class="nav-center" aria-label="Main navigation">
-    <a href="#home" class="nav-tab" data-section="home"><span class="nav-icon" aria-hidden="true">🏠</span> Home</a>
-    <a href="/consulting" class="nav-tab" data-section="consulting"><span class="nav-icon" aria-hidden="true">⚖️</span> Consulting</a>
-    <a href="/recruitment" class="nav-tab" data-section="recruitment"><span class="nav-icon" aria-hidden="true">👥</span> Recruitment</a>
-    <a href="/outsourcing" class="nav-tab" data-section="outsourcing"><span class="nav-icon" aria-hidden="true">🔄</span> Outsourcing</a>
-    <a href="/training" class="nav-tab" data-section="training"><span class="nav-icon" aria-hidden="true">📚</span> Training <span class="badge-new">NEW</span></a>
-    <a href="/stories" class="nav-tab" data-section="stories">Stories</a>
-    <a href="/about" class="nav-tab" data-section="about">About</a>
+    <a href="/" class="nav-tab ${activePage === 'index' ? 'active' : ''}" data-section="home">
+      <svg class="nav-icon" viewBox="0 0 28 28" fill="none"><rect x="2" y="10" width="24" height="16" rx="3" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M5 10V6L14 2l9 4v4" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>
+      Home
+    </a>
+    <a href="/consulting" class="nav-tab ${activePage === 'consulting' ? 'active' : ''}" data-section="consulting">
+      <svg class="nav-icon" viewBox="0 0 28 28" fill="none"><path d="M14 2L26 24H2L14 2Z" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linejoin="round"/><path d="M14 10V16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="14" cy="20" r="1" fill="currentColor"/></svg>
+      Consulting
+    </a>
+    <a href="/recruitment" class="nav-tab ${activePage === 'recruitment' ? 'active' : ''}" data-section="recruitment">
+      <svg class="nav-icon" viewBox="0 0 28 28" fill="none"><circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M14 14l8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      Recruitment
+    </a>
+    <a href="/outsourcing" class="nav-tab ${activePage === 'outsourcing' ? 'active' : ''}" data-section="outsourcing">
+      <svg class="nav-icon" viewBox="0 0 28 28" fill="none"><path d="M4 14h20M14 4v20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="14" cy="14" r="10" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>
+      Outsourcing
+    </a>
+    <a href="/training" class="nav-tab ${activePage === 'training' ? 'active' : ''}" data-section="training">
+      <svg class="nav-icon" viewBox="0 0 28 28" fill="none"><rect x="3" y="5" width="22" height="18" rx="3" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M10 13l3 3 5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      Training
+      <span class="badge-new">NEW</span>
+    </a>
+    <a href="/stories" class="nav-tab ${activePage === 'stories' ? 'active' : ''}" data-section="stories">
+      <svg class="nav-icon" viewBox="0 0 28 28" fill="none"><path d="M5 4h18a1 1 0 011 1v18a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1z" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M8 9h12M8 14h12M8 19h7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      Stories
+    </a>
+    <a href="/about" class="nav-tab ${activePage === 'about' ? 'active' : ''}" data-section="about">
+      <svg class="nav-icon" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="11" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M14 12v7M14 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      About
+    </a>
   </nav>
   <div class="nav-right">
-    <a href="/faq">FAQ</a>
+    <a href="/faq" ${activePage === 'faq' ? 'style="font-weight: var(--fw-bold);"' : ''}>FAQ</a>
     <a href="/contact" class="btn-contact-nav">Contact Us</a>
-    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
       <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
     </button>
   </div>
 </header>
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="navigation" aria-label="Mobile menu">
-  <a href="/" class="mobile-nav-link">Home</a>
-  <a href="/consulting" class="mobile-nav-link">HR Consulting</a>
-  <a href="/recruitment" class="mobile-nav-link">Recruitment Services</a>
-  <a href="/outsourcing" class="mobile-nav-link">Outsourcing Solutions</a>
-  <a href="/training" class="mobile-nav-link">Training Courses</a>
-  <a href="/stories" class="mobile-nav-link">Success Stories</a>
-  <a href="/about" class="mobile-nav-link">About Us</a>
-  <a href="/faq" class="mobile-nav-link">FAQ</a>
+  <a href="/" class="mobile-nav-link ${activePage === 'index' ? 'active' : ''}">Home</a>
+  <a href="/consulting" class="mobile-nav-link ${activePage === 'consulting' ? 'active' : ''}">HR Consulting</a>
+  <a href="/recruitment" class="mobile-nav-link ${activePage === 'recruitment' ? 'active' : ''}">Recruitment Services</a>
+  <a href="/outsourcing" class="mobile-nav-link ${activePage === 'outsourcing' ? 'active' : ''}">Outsourcing Solutions</a>
+  <a href="/training" class="mobile-nav-link ${activePage === 'training' ? 'active' : ''}">Training Courses</a>
+  <a href="/stories" class="mobile-nav-link ${activePage === 'stories' ? 'active' : ''}">Success Stories</a>
+  <a href="/about" class="mobile-nav-link ${activePage === 'about' ? 'active' : ''}">About Us</a>
+  <a href="/faq" class="mobile-nav-link ${activePage === 'faq' ? 'active' : ''}">FAQ</a>
   <a href="/contact" class="mobile-nav-link mobile-cta">Contact Us</a>
 </div>`;
 }

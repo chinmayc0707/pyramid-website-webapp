@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Pyramid Solutions HR Consultancy - Vercel Deployable with SEO & Content Negotiation",
   "main": "api/index.js",
+  "type": "module",
   "scripts": {
     "dev": "vercel dev",
     "build": "echo 'No build step required'",

@@ -1,0 +1,21 @@
+# robots.txt for Pyramid Solutions
+# Generated automatically - update via Flask app for dynamic control
+
+User-agent: *
+Allow: /
+
+# Disallow admin, API, and private paths
+Disallow: /api/
+Disallow: /health
+Disallow: /static/
+Disallow: /*.json$
+Disallow: /*.md$
+
+# Crawl-delay for respectful crawling (optional)
+Crawl-delay: 10
+
+# Sitemap location
+Sitemap: https://pyramidsolutions.com/sitemap.xml
+
+# Host directive (optional, for Yandex)
+Host: https://pyramidsolutions.com
