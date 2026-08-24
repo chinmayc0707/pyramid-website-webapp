@@ -4,82 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    {% if seo %}
-        <!-- Primary Meta Tags -->
-        <title>{{ seo.title }}</title>
-        <meta name="title" content="{{ seo.title }}">
-        <meta name="description" content="{{ seo.description }}">
-        <meta name="keywords" content="{{ seo.keywords }}">
-        <meta name="author" content="{{ seo.author }}">
-        <meta name="robots" content="{{ seo.robots }}">
+    <!-- Primary Meta Tags -->
+    <title>Pyramid Solutions — HR Consulting, Recruitment & Outsourcing</title>
+    <meta name="title" content="Pyramid Solutions — HR Consulting, Recruitment & Outsourcing">
+    <meta name="description" content="Expert HR Consulting, Recruitment, BPO, HRO, and End-to-End Outsourcing solutions alongside professional training to elevate your organization.">
+    <meta name="keywords" content="HR consultancy, HR advisory, Change Management, Org Design, Business Process Outsourcing, BPO, HR Outsourcing, HRO, Talent Outsourcing, End-to-End Outsourcing, Permanent Recruitment, IT Recruitment, Non-IT Recruitment, Executive Hiring, Pyramid Solutions">
+    <meta name="author" content="Pyramid Solutions">
+    <meta name="robots" content="index, follow">
 
-        <!-- Canonical URL -->
-        <link rel="canonical" href="{{ seo.canonical_url }}">
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://pyramidsolutions.com/">
 
-        <!-- Open Graph / Facebook -->
-        <meta property="og:type" content="{{ seo.og_type }}">
-        <meta property="og:url" content="{{ seo.og_url }}">
-        <meta property="og:title" content="{{ seo.og_title }}">
-        <meta property="og:description" content="{{ seo.og_description }}">
-        <meta property="og:image" content="{{ seo.og_image }}">
-        <meta property="og:site_name" content="{{ seo.og_site_name }}">
-        <meta property="og:locale" content="en_US">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pyramidsolutions.com/">
+    <meta property="og:title" content="Pyramid Solutions — Premier HR Consultancy & Outsourcing">
+    <meta property="og:description" content="Expert HR Consulting, Recruitment, BPO, HRO, and End-to-End Outsourcing solutions alongside professional training to elevate your organization.">
+    <meta property="og:image" content="https://pyramidsolutions.com/static/images/og-default.jpg">
+    <meta property="og:site_name" content="Pyramid Solutions">
+    <meta property="og:locale" content="en_US">
 
-        <!-- Twitter Card -->
-        <meta name="twitter:card" content="{{ seo.twitter_card }}">
-        <meta name="twitter:site" content="{{ seo.twitter_site }}">
-        <meta name="twitter:creator" content="{{ seo.twitter_creator }}">
-        <meta name="twitter:title" content="{{ seo.twitter_title }}">
-        <meta name="twitter:description" content="{{ seo.twitter_description }}">
-        <meta name="twitter:image" content="{{ seo.twitter_image }}">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@pyramidsolutions">
+    <meta name="twitter:creator" content="@pyramidsolutions">
+    <meta name="twitter:title" content="Pyramid Solutions — Premier HR Consultancy & Outsourcing">
+    <meta name="twitter:description" content="Expert HR Consulting, Recruitment, BPO, HRO, and End-to-End Outsourcing solutions alongside professional training to elevate your organization.">
+    <meta name="twitter:image" content="https://pyramidsolutions.com/static/images/og-default.jpg">
 
-        <!-- Additional SEO Meta Tags -->
-        <meta name="theme-color" content="#ff385c">
-        <meta name="msapplication-TileColor" content="#ff385c">
-        <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
-        <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
-        <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
-        <link rel="manifest" href="/static/site.webmanifest">
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#ff385c">
+    <meta name="msapplication-TileColor" content="#ff385c">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="manifest" href="/static/site.webmanifest">
 
-        <!-- Preload critical resources -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
-        <link rel="preload" as="image" href="{{ seo.og_image }}">
-
-        <!-- Hreflang for internationalization -->
-        <link rel="alternate" hreflang="en" href="{{ seo.canonical_url }}">
-        <link rel="alternate" hreflang="x-default" href="{{ seo.canonical_url }}">
-
-        <!-- JSON-LD Structured Data -->
-        {% if structured_data %}
-            {% for schema in structured_data %}
-                <script type="application/ld+json">{{ schema | tojson }}</script>
-            {% endfor %}
-        {% endif %}
-    {% else %}
-        <!-- Fallback SEO (when seo context not available) -->
-        <title>Pyramid Solutions — HR Consulting, Recruitment & Outsourcing</title>
-        <meta name="description" content="Expert HR Consulting, Recruitment, BPO, HRO, and End-to-End Outsourcing solutions alongside professional training to elevate your organization.">
-        <meta name="keywords" content="HR consultancy, HR advisory, Change Management, Org Design, Business Process Outsourcing, BPO, HR Outsourcing, HRO, Talent Outsourcing, End-to-End Outsourcing, Permanent Recruitment, IT Recruitment, Non-IT Recruitment, Executive Hiring, Pyramid Solutions">
-        <meta name="author" content="Pyramid Solutions">
-        <meta name="robots" content="index, follow">
-        <link rel="canonical" href="https://pyramidsolutions.com/">
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="https://pyramidsolutions.com/">
-        <meta property="og:title" content="Pyramid Solutions — Premier HR Consultancy & Outsourcing">
-        <meta property="og:description" content="Expert HR Consulting, Recruitment, BPO, HRO, and End-to-End Outsourcing solutions alongside professional training to elevate your organization.">
-        <meta property="og:image" content="https://pyramidsolutions.com/static/images/og-default.jpg">
-        <meta property="og:site_name" content="Pyramid Solutions">
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:site" content="@pyramidsolutions">
-        <meta name="twitter:title" content="Pyramid Solutions — Premier HR Consultancy & Outsourcing">
-        <meta name="twitter:description" content="Expert HR Consulting, Recruitment, BPO, HRO, and End-to-End Outsourcing solutions alongside professional training to elevate your organization.">
-        <meta name="twitter:image" content="https://pyramidsolutions.com/static/images/og-default.jpg">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    {% endif %}
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <style>

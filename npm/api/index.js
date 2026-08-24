@@ -312,8 +312,9 @@ function renderHTML(templateName, data = {}) {
   if (templateName === 'index') {
     let indexHtml = readHtmlTemplate('index');
     if (indexHtml) {
-      // Replace Jinja SEO block with generated SEO head
-      indexHtml = indexHtml.replace(/{%\s*if\s+seo\s*%}[\s\S]*?{%\s*endif\s*%}/, generateSeoHead(pageData, 'index'));
+      indexHtml = indexHtml.replace(/<head>([\s\S]*?)<style>/i, `<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  ${generateSeoHead(pageData, 'index')}\n  <style>`);
+      indexHtml = indexHtml.replace(/{%[\s\S]*?%}/g, '');
+      indexHtml = indexHtml.replace(/{{[\s\S]*?}}/g, '');
       return indexHtml;
     }
   }
@@ -327,7 +328,7 @@ function renderHTML(templateName, data = {}) {
     const content = contentMatch ? contentMatch[1] : pageHtml;
 
     let fullHtml = baseHtml.replace(/{%\s*block\s+content\s*%}{%\s*endblock\s*%}/, content);
-    fullHtml = fullHtml.replace(/{%\s*if\s+seo\s*%}[\s\S]*?{%\s*endif\s*%}/, generateSeoHead(pageData, templateName));
+    fullHtml = fullHtml.replace(/<head>([\s\S]*?)<style>/i, `<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  ${generateSeoHead(pageData, templateName)}\n  <style>`);
     fullHtml = fullHtml.replace(/{%\s*block\s+extra_head\s*%}{%\s*endblock\s*%}/, '');
     fullHtml = fullHtml.replace(/{%\s*block\s+scripts\s*%}{%\s*endblock\s*%}/, '');
 
@@ -338,6 +339,9 @@ function renderHTML(templateName, data = {}) {
     fullHtml = fullHtml.replace(/{%\s*if\s+active_page\s*==\s*'faq'\s*%}style="font-weight:\s*var\(--fw-bold\);"{%\s*endif\s*%}/g, () => {
       return templateName === 'faq' ? 'style="font-weight: var(--fw-bold);"' : '';
     });
+
+    fullHtml = fullHtml.replace(/{%[\s\S]*?%}/g, '');
+    fullHtml = fullHtml.replace(/{{[\s\S]*?}}/g, '');
 
     return fullHtml;
   }
