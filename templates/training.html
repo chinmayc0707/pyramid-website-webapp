@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <span class="section-label">Training & Upskilling</span>
+    <h1>Professional HR Training & Certification Courses</h1>
+    <p>Our comprehensive catalog of HR and professional development courses is designed to upskill teams and accelerate careers. All courses include certification upon completion.</p>
+</div>
+
+<section class="section">
+    <div class="courses-grid" id="coursesGrid">
+        <div class="course-card reveal" data-category="hr-fundamentals">
+            <div class="course-card-image cat-hr">
+                <span class="course-badge">8 Weeks</span>
+                📋
+            </div>
+            <div class="course-card-body">
+                <h4>HR Fundamentals Certification</h4>
+                <p style="font-size: var(--fs-body-sm); color: var(--color-muted);">Master recruitment, onboarding, performance management, and HRO basics.</p>
+                <div class="course-price">₹1,25,000</div>
+                <a href="/contact" class="btn-primary" style="width: 100%; text-align: center; margin-top: var(--spacing-sm);">Enroll Now</a>
+            </div>
+        </div>
+
+        <div class="course-card reveal" data-category="recruitment">
+            <div class="course-card-image cat-recruit">
+                <span class="course-badge">4 Weeks</span>
+                🔍
+            </div>
+            <div class="course-card-body">
+                <h4>Advanced Talent Sourcing & IT Recruitment</h4>
+                <p style="font-size: var(--fs-body-sm); color: var(--color-muted);">Learn Boolean search, technical IT candidate screening, and automated sourcing toolsets.</p>
+                <div class="course-price">₹75,000</div>
+                <a href="/contact" class="btn-primary" style="width: 100%; text-align: center; margin-top: var(--spacing-sm);">Enroll Now</a>
+            </div>
+        </div>
+
+        <div class="course-card reveal" data-category="leadership">
+            <div class="course-card-image cat-leadership">
+                <span class="course-badge">12 Weeks</span>
+                🏆
+            </div>
+            <div class="course-card-body">
+                <h4>Strategic Executive Leadership</h4>
+                <p style="font-size: var(--fs-body-sm); color: var(--color-muted);">Build C-suite leadership vision, strategic negotiation, and organizational change capabilities.</p>
+                <div class="course-price">₹2,10,000</div>
+                <a href="/contact" class="btn-primary" style="width: 100%; text-align: center; margin-top: var(--spacing-sm);">Enroll Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
