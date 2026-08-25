@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% set active_page = 'recruitment' %}
+
 {% block content %}
 <div class="page-header">
     <span class="section-label">Recruitment Solutions</span>
@@ -50,6 +52,33 @@
                 <p>Discreet executive search for C-suite, VP, and Director-level leadership to drive organizational vision.</p>
             </div>
             <a href="/contact" class="btn-tertiary">Initiate Executive Search →</a>
+        </div>
+    </div>
+
+    <!-- Current Openings -->
+    <h3 class="section-title-sm" style="margin-top: var(--spacing-xxl);">Featured Client Opportunities</h3>
+    <div class="job-listings">
+        <div class="job-card reveal">
+            <span class="job-type">Executive Hiring</span>
+            <h4>Chief Human Resources Officer</h4>
+            <div class="job-meta">
+                <span>📍 Mumbai, MH</span>
+                <span>💰 ₹1.4 Cr – ₹1.9 Cr</span>
+                <span>🏢 Fortune 500</span>
+            </div>
+            <p style="font-size: var(--fs-body-sm); color: var(--color-muted);">Lead HR strategy for a global enterprise with 10,000+ employees.</p>
+            <a href="/contact" class="btn-tertiary">Apply Now →</a>
+        </div>
+        <div class="job-card reveal">
+            <span class="job-type">IT Recruitment</span>
+            <h4>Senior Cloud Architect</h4>
+            <div class="job-meta">
+                <span>📍 Remote</span>
+                <span>💰 ₹1.2 Cr – ₹1.4 Cr</span>
+                <span>🏢 SaaS Tech</span>
+            </div>
+            <p style="font-size: var(--fs-body-sm); color: var(--color-muted);">Lead multi-cloud infrastructure and migration projects for enterprise clients.</p>
+            <a href="/contact" class="btn-tertiary">Apply Now →</a>
         </div>
     </div>
 </section>

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% set active_page = 'about' %}
+
 {% block content %}
 <div class="page-header">
     <span class="section-label">About Us</span>
@@ -9,9 +11,46 @@
 
 <section class="section">
     <div class="about-grid">
+        <div class="about-visual reveal" aria-hidden="true">
+            <svg width="120" height="140" viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg" class="pyramid-svg">
+                <path d="M60 5L115 130H5L60 5Z" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+                <path d="M60 35L90 115H30L60 35Z" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+                <circle cx="60" cy="90" r="8" fill="rgba(255,255,255,0.7)"/>
+            </svg>
+        </div>
         <div class="about-text reveal">
             <h2>Our Mission & Core Values</h2>
             <p>Our team of 85+ certified professionals combines human insight with modern technology to match organizations with operational stability and sustainable success.</p>
+            <div class="values-list">
+                <div class="value-item">
+                    <div class="value-icon">🎯</div>
+                    <div>
+                        <h4>Targeted Match</h4>
+                        <p>Deeply vetted candidates & custom strategies.</p>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">🛡️</div>
+                    <div>
+                        <h4>Compliance First</h4>
+                        <p>Strict adherence to global labor laws.</p>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">⚡</div>
+                    <div>
+                        <h4>Agile Delivery</h4>
+                        <p>Fast deployment without sacrificing quality.</p>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">🤝</div>
+                    <div>
+                        <h4>Partnership</h4>
+                        <p>Acting as an extension of your core team.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>

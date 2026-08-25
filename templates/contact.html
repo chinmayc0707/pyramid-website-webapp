@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% set active_page = 'contact' %}
+
 {% block content %}
 <div class="page-header">
     <span class="section-label">Get In Touch</span>
@@ -23,9 +25,16 @@
                 <select id="inquiryType" name="inquiryType" required>
                     <option value="">Select an option</option>
                     <option value="consulting">HR Consulting & Strategy</option>
+                    <option value="compliance-audit">HR Compliance & Policy Audit</option>
+                    <option value="org-design">Organizational Design & Restructuring</option>
                     <option value="recruitment">Recruitment (Permanent, Temporary, Contract)</option>
+                    <option value="specialized-recruitment">IT & Non-IT Recruitment</option>
+                    <option value="executive">Executive Hiring</option>
                     <option value="bpo-hro">Outsourcing Solutions (BPO, HRO, Talent)</option>
-                    <option value="training">Training Courses</option>
+                    <option value="end-to-end">End-to-End Outsourcing</option>
+                    <option value="candidate">I'm seeking a job / Submit CV</option>
+                    <option value="training">I'm interested in Training Courses</option>
+                    <option value="other">Other / General Inquiry</option>
                 </select>
             </div>
             <div class="form-group">
@@ -37,6 +46,66 @@
                 ✅ Thank you! Your message has been received. A dedicated consultant will respond within 24 hours.
             </div>
         </form>
+
+        <div class="contact-info-cards">
+            <div class="contact-info-card">
+                <div class="ci-icon">📍</div>
+                <div>
+                    <h4>Headquarters</h4>
+                    <p>350 Park Avenue, 12th Floor<br>New York, NY 10022<br>United States</p>
+                </div>
+            </div>
+            <div class="contact-info-card">
+                <div class="ci-icon">📞</div>
+                <div>
+                    <h4>Phone</h4>
+                    <p>+1 (212) 555-0187<br>Mon–Fri, 8:00 AM – 6:00 PM EST</p>
+                </div>
+            </div>
+            <div class="contact-info-card">
+                <div class="ci-icon">✉️</div>
+                <div>
+                    <h4>Email</h4>
+                    <p>info@pyramidsolutions.com<br>consulting@pyramidsolutions.com<br>careers@pyramidsolutions.com</p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    (function() {
+        const contactForm = document.getElementById('contactForm');
+        const formSuccess = document.getElementById('formSuccess');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const fullName = document.getElementById('fullName').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const inquiryType = document.getElementById('inquiryType').value;
+                const message = document.getElementById('message').value.trim();
+
+                if (!fullName || !email || !inquiryType || !message) {
+                    alert('Please complete all required fields.');
+                    return;
+                }
+
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+
+                setTimeout(() => {
+                    contactForm.reset();
+                    formSuccess.style.display = 'block';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Inquiry';
+                    setTimeout(() => formSuccess.style.display = 'none', 5000);
+                }, 1000);
+            });
+        }
+    })();
+</script>
 {% endblock %}
