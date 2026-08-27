@@ -155,6 +155,20 @@ const PAGES = {
     canonical: '/',
     sections: ['hero', 'trust', 'consulting', 'services', 'recruitment', 'outsourcing', 'training', 'stories', 'about', 'faq', 'contact'],
   },
+  home: {
+    title: 'Pyramid Solutions — Building Exceptional Teams & Streamlined Operations',
+    description: 'High-impact HR consultancy, recruitment, BPO, HRO, and professional development. 15K+ candidates placed, 98% client satisfaction, 350+ BPO & HR partners.',
+    keywords: 'HR consultancy, premier HR, exceptional teams, recruitment solutions, BPO, HRO, professional development, Pyramid Solutions',
+    canonical: '/home',
+    sections: ['hero', 'trust', 'services-teaser'],
+  },
+  services: {
+    title: 'HR Services Overview — Recruitment, Outsourcing & Training | Pyramid Solutions',
+    description: 'Comprehensive HR service lines: precision talent acquisition, strategic BPO & HR outsourcing, and professional certification programs.',
+    keywords: 'HR services, recruitment, outsourcing, BPO, HRO, HR consulting, training, Pyramid Solutions services',
+    canonical: '/services',
+    sections: ['consulting', 'recruitment', 'outsourcing', 'training'],
+  },
   consulting: {
     title: 'HR Consulting & Advisory | Pyramid Solutions',
     description: 'Strategic HR consulting, compliance, employee relations, compensation structuring, fractional HR leadership, and organizational design.',
@@ -646,6 +660,8 @@ Crawl-delay: 10`;
 
 // Main page routes with content negotiation
 app.get(['/', '/index'], (req, res) => handlePageRequest(req, res, 'index'));
+app.get('/home', (req, res) => handlePageRequest(req, res, 'home'));
+app.get('/services', (req, res) => handlePageRequest(req, res, 'services'));
 app.get('/consulting', (req, res) => handlePageRequest(req, res, 'consulting'));
 app.get('/recruitment', (req, res) => handlePageRequest(req, res, 'recruitment'));
 app.get('/outsourcing', (req, res) => handlePageRequest(req, res, 'outsourcing'));

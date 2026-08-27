@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% set active_page = 'home' %}
+
+{% block content %}
+<!-- ========== HERO SECTION ========== -->
+<section class="hero" id="home" aria-labelledby="hero-headline">
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span class="dot"></span> Trusted by 500+ enterprise clients worldwide
+        </div>
+        <h1 id="hero-headline">Building <span class="highlight">exceptional teams</span> &amp; streamlined operations</h1>
+        <p>Pyramid Solutions delivers high-impact HR consultancy, recruitment solutions, Business Process Outsourcing (BPO), HR Outsourcing (HRO), and professional development programs designed to accelerate growth.</p>
+        <div class="hero-actions">
+            <a href="/contact" class="btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M16 16l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                Get Free HR Audit
+            </a>
+            <a href="/consulting" class="btn-secondary">Explore HR Consulting</a>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="number" data-target="15">0</div>
+                <div class="label">K+ Candidates Placed</div>
+            </div>
+            <div class="hero-stat">
+                <div class="number" data-target="98">0</div>
+                <div class="label">% Client Satisfaction</div>
+            </div>
+            <div class="hero-stat">
+                <div class="number" data-target="350">0</div>
+                <div class="label">+ BPO &amp; HR Partners</div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+        <div class="hero-card-stack">
+            <div class="hero-card">Executive Search &amp;<br>Recruitment</div>
+            <div class="hero-card">BPO &amp; HRO<br>Outsourcing</div>
+            <div class="hero-card">HR Consulting &amp;<br>Professional Training</div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== TRUST BAR ========== -->
+<div class="trust-bar reveal">
+    <p>Trusted by industry leaders globally</p>
+    <div class="trust-logos">
+        <div class="trust-logo">TechCorp</div>
+        <div class="trust-logo">MedGlobal</div>
+        <div class="trust-logo">FinLuxe</div>
+        <div class="trust-logo">CloudNet</div>
+        <div class="trust-logo">AgriTech</div>
+    </div>
+</div>
+
+<!-- ========== SERVICES TEASER ========== -->
+<section class="section" aria-labelledby="home-services-title" style="margin-top: var(--spacing-section);">
+    <span class="section-label">Our Services</span>
+    <h2 class="section-title" id="home-services-title">What We Can Do For You</h2>
+    <p class="section-subtitle">Explore our full suite of HR solutions designed to transform your organisation.</p>
+    <div style="display: flex; gap: var(--spacing-md); flex-wrap: wrap; justify-content: center; margin-top: var(--spacing-lg);">
+        <a href="/consulting" class="btn-secondary">HR Consulting</a>
+        <a href="/recruitment" class="btn-secondary">Recruitment</a>
+        <a href="/outsourcing" class="btn-secondary">Outsourcing</a>
+        <a href="/training" class="btn-secondary">Training</a>
+        <a href="/services" class="btn-primary">View All Services →</a>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    (function() {
+        // Count-up Stats Animation
+        const statsElems = document.querySelectorAll('.hero-stat .number');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute('data-target'));
+                    let current = 0;
+                    const increment = Math.ceil(target / 30);
+
+                    const updateCount = () => {
+                        current += increment;
+                        if (current >= target) {
+                            entry.target.textContent = target;
+                        } else {
+                            entry.target.textContent = current;
+                            requestAnimationFrame(updateCount);
+                        }
+                    };
+                    updateCount();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        statsElems.forEach(elem => statsObserver.observe(elem));
+    })();
+</script>
+{% endblock %}

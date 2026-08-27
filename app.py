@@ -144,6 +144,26 @@ def create_app():
                 "canonical": f"{base_url}/about",
                 "robots": "index, follow",
             },
+            "home": {
+                "title": "Pyramid Solutions — Building Exceptional Teams & Streamlined Operations",
+                "description": "High-impact HR consultancy, recruitment, BPO, HRO, and professional development. 15K+ candidates placed, 98% client satisfaction, 350+ BPO & HR partners.",
+                "keywords": "HR consultancy, premier HR, exceptional teams, recruitment solutions, BPO, HRO, professional development, Pyramid Solutions",
+                "og_type": "website",
+                "og_title": "Pyramid Solutions — Building Exceptional Teams & Streamlined Operations",
+                "og_description": "High-impact HR consultancy, recruitment, BPO, HRO, and professional development that accelerates growth.",
+                "canonical": f"{base_url}/home",
+                "robots": "index, follow",
+            },
+            "services": {
+                "title": "HR Services Overview — Recruitment, Outsourcing & Training | Pyramid Solutions",
+                "description": "Comprehensive HR service lines: precision talent acquisition, strategic BPO & HR outsourcing, and professional certification programs.",
+                "keywords": "HR services, recruitment, outsourcing, BPO, HRO, HR consulting, training, Pyramid Solutions services",
+                "og_type": "website",
+                "og_title": "HR Services Overview — Recruitment, Outsourcing & Training | Pyramid Solutions",
+                "og_description": "Comprehensive HR service lines: talent acquisition, BPO & HR outsourcing, HR consulting, and professional certification programs.",
+                "canonical": f"{base_url}/services",
+                "robots": "index, follow",
+            },
             "faq": {
                 "title": "Frequently Asked Questions | Pyramid Solutions",
                 "description": "Find answers to common questions about our HR consulting, recruitment, outsourcing, and training services. Industries served, fractional HR, guarantees, international hiring.",
@@ -451,6 +471,8 @@ def create_app():
 
         # Add page-specific breadcrumb
         page_breadcrumbs = {
+            "home": "Home",
+            "services": "Services",
             "consulting": "HR Consulting",
             "recruitment": "Recruitment",
             "outsourcing": "Outsourcing",
@@ -480,6 +502,8 @@ def create_app():
 
         urls = [
             {"loc": base_url, "lastmod": now, "changefreq": "weekly", "priority": "1.0"},
+            {"loc": f"{base_url}/home", "lastmod": now, "changefreq": "weekly", "priority": "0.9"},
+            {"loc": f"{base_url}/services", "lastmod": now, "changefreq": "monthly", "priority": "0.9"},
             {"loc": f"{base_url}/consulting", "lastmod": now, "changefreq": "monthly", "priority": "0.8"},
             {"loc": f"{base_url}/recruitment", "lastmod": now, "changefreq": "monthly", "priority": "0.8"},
             {"loc": f"{base_url}/outsourcing", "lastmod": now, "changefreq": "monthly", "priority": "0.8"},
@@ -611,6 +635,52 @@ def create_app():
         seo_meta = get_seo_meta("index")
         structured_data = get_structured_data("index")
         return render_template("index.html", seo=seo_meta, structured_data=structured_data)
+
+    @app.route("/home")
+    def home_section():
+        """Serve the standalone Hero/Home section page with content negotiation and SEO."""
+        content_type = negotiate_content_type(request.headers.get("Accept", ""))
+
+        if content_type == "text/markdown":
+            md_content = render_markdown("home")
+            response = make_response(md_content)
+            response.headers["Content-Type"] = "text/markdown; charset=utf-8"
+            return response
+
+        if content_type == "application/json":
+            return {
+                "page": "home",
+                "format": "json",
+                "html_url": "/home",
+                "markdown_url": "/api/content/home?format=markdown",
+            }
+
+        seo_meta = get_seo_meta("home")
+        structured_data = get_structured_data("index")  # reuse org/website schema
+        return render_template("home.html", seo=seo_meta, structured_data=structured_data)
+
+    @app.route("/services")
+    def services_section():
+        """Serve the standalone Services Overview section page with content negotiation and SEO."""
+        content_type = negotiate_content_type(request.headers.get("Accept", ""))
+
+        if content_type == "text/markdown":
+            md_content = render_markdown("services")
+            response = make_response(md_content)
+            response.headers["Content-Type"] = "text/markdown; charset=utf-8"
+            return response
+
+        if content_type == "application/json":
+            return {
+                "page": "services",
+                "format": "json",
+                "html_url": "/services",
+                "markdown_url": "/api/content/services?format=markdown",
+            }
+
+        seo_meta = get_seo_meta("services")
+        structured_data = get_structured_data("index")  # reuse org schema with services
+        return render_template("services.html", seo=seo_meta, structured_data=structured_data)
 
     @app.route("/<path:page>")
     def serve_page(page: str):

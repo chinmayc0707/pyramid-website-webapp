@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% set active_page = 'home' %}
+
+{% block content %}
+<!-- ========== SERVICES OVERVIEW ========== -->
+<section class="section" id="services" aria-labelledby="services-title" style="background: var(--color-surface-soft); border-radius: var(--rounded-lg); margin-top: var(--spacing-section);">
+    <span class="section-label">What We Do</span>
+    <h2 class="section-title" id="services-title">Comprehensive Recruitment &amp; Outsourcing Solutions</h2>
+    <p class="section-subtitle">Whether you need specialized talent acquisition, full enterprise process outsourcing, or workforce upskilling, we deliver custom-tailored HR strategies.</p>
+    <div class="services-grid">
+        <a href="/consulting" class="service-card reveal">
+            <div class="card-icon consulting">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2L22 20H2L12 2Z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/><path d="M12 9v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17" r="1" fill="currentColor"/></svg>
+            </div>
+            <h3>HR Consulting</h3>
+            <p>Fractional HR leadership, compliance audits, organizational design, compensation structuring, and HR technology advisory for growing enterprises.</p>
+            <div class="tag-list">
+                <span class="tag-pill">Compliance</span>
+                <span class="tag-pill">Org Design</span>
+                <span class="tag-pill">Fractional HR</span>
+                <span class="tag-pill">HRIS Advisory</span>
+            </div>
+            <span class="btn-tertiary" style="margin-top: auto;">Explore Consulting →</span>
+        </a>
+        <a href="/recruitment" class="service-card reveal">
+            <div class="card-icon placement">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="9" r="6" stroke="currentColor" stroke-width="2"/><path d="M14 14l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Recruitment &amp; Staffing</h3>
+            <p>End-to-end recruitment strategies designed for precision hiring across technical, non-technical, and executive tiers.</p>
+            <div class="tag-list">
+                <span class="tag-pill">Permanent</span>
+                <span class="tag-pill">Temporary</span>
+                <span class="tag-pill">Contract</span>
+                <span class="tag-pill">Executive Hiring</span>
+            </div>
+            <span class="btn-tertiary" style="margin-top: auto;">Explore Recruitment →</span>
+        </a>
+        <a href="/outsourcing" class="service-card reveal">
+            <div class="card-icon outsourcing">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Strategic Outsourcing</h3>
+            <p>Optimize operational efficiency with full business process outsourcing, dedicated talent models, and complete HR management.</p>
+            <div class="tag-list">
+                <span class="tag-pill">BPO</span>
+                <span class="tag-pill">HR Outsourcing</span>
+                <span class="tag-pill">Talent Outsourcing</span>
+                <span class="tag-pill">End-to-End</span>
+            </div>
+            <span class="btn-tertiary" style="margin-top: auto;">Explore Outsourcing →</span>
+        </a>
+        <a href="/training" class="service-card reveal">
+            <div class="card-icon training">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="3" stroke="currentColor" stroke-width="2"/><path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>Training &amp; Development</h3>
+            <p>Practical certifications in HR management, technical recruitment, compliance, and strategic executive leadership.</p>
+            <div class="tag-list">
+                <span class="tag-pill">Certifications</span>
+                <span class="tag-pill">Labor Law</span>
+                <span class="tag-pill">Soft Skills</span>
+                <span class="tag-pill">Leadership</span>
+            </div>
+            <span class="btn-tertiary" style="margin-top: auto;">Browse Courses →</span>
+        </a>
+    </div>
+</section>
+
+<!-- ========== CTA STRIP ========== -->
+<section class="section" aria-label="Call to action" style="text-align: center; padding: var(--spacing-xl) 0;">
+    <h2 class="section-title">Ready to transform your HR?</h2>
+    <p class="section-subtitle">Book a free HR audit and discover how Pyramid Solutions can accelerate your organisation's growth.</p>
+    <div style="display: flex; gap: var(--spacing-md); justify-content: center; flex-wrap: wrap; margin-top: var(--spacing-lg);">
+        <a href="/contact" class="btn-primary">Get Free HR Audit</a>
+        <a href="/about" class="btn-secondary">About Us</a>
+    </div>
+</section>
+{% endblock %}
