@@ -132,7 +132,7 @@ const SITE_CONFIG = {
   name: 'Pyramid Solutions',
   tagline: 'Premier HR Consultancy & Outsourcing',
   description: 'Expert HR Consulting, Recruitment, BPO, HRO, and End-to-End Outsourcing solutions alongside professional training to elevate your organization.',
-  url: 'https://pyramid-solutions.vercel.app',
+  url: process.env.SITE_URL || 'https://pyramidsolutions.com',
   ogImage: '/static/og-image.jpg',
   twitterHandle: '@pyramidsolutions',
   contact: {
@@ -612,13 +612,19 @@ app.get('/sitemap.xml', (req, res) => {
   const baseUrl = SITE_CONFIG.url;
   const lastmod = new Date().toISOString().split('T')[0];
 
-  const urls = Object.entries(PAGES).map(([key, page]) => `
-  <url>
-    <loc>${baseUrl}${page.canonical}</loc>
+  const urls = Object.entries(PAGES).map(([key, page]) => {
+    const loc = `${baseUrl}${page.canonical === '/' ? '' : page.canonical}`;
+    const changefreq = key === 'index' ? 'weekly' : (key === 'about' || key === 'contact') ? 'yearly' : 'monthly';
+    const priority = key === 'index' ? '1.0' : (key === 'stories' || key === 'contact') ? '0.7' : (key === 'about' || key === 'faq') ? '0.6' : '0.8';
+    return `  <url>
+    <loc>${loc}</loc>
     <lastmod>${lastmod}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>${key === 'index' ? '1.0' : '0.8'}</priority>
-  </url>`).join('');
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="${loc}"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="${loc}"/>
+  </url>`;
+  }).join('\n');
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -626,7 +632,8 @@ app.get('/sitemap.xml', (req, res) => {
 ${urls}
 </urlset>`;
 
-  res.set('Content-Type', 'application/xml');
+  res.set('Content-Type', 'application/xml; charset=utf-8');
+  res.set('Cache-Control', 'public, max-age=86400');
   res.send(sitemap);
 });
 
