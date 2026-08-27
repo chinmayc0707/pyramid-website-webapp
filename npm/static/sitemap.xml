@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://pyramidsolutions.com</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pyramidsolutions.com"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pyramidsolutions.com"/>
+  </url>
+  <url>
+    <loc>https://pyramidsolutions.com/consulting</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pyramidsolutions.com/consulting"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pyramidsolutions.com/consulting"/>
+  </url>
+  <url>
+    <loc>https://pyramidsolutions.com/recruitment</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pyramidsolutions.com/recruitment"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pyramidsolutions.com/recruitment"/>
+  </url>
+  <url>
+    <loc>https://pyramidsolutions.com/outsourcing</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pyramidsolutions.com/outsourcing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pyramidsolutions.com/outsourcing"/>
+  </url>
+  <url>
+    <loc>https://pyramidsolutions.com/training</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pyramidsolutions.com/training"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pyramidsolutions.com/training"/>
+  </url>
+  <url>
+    <loc>https://pyramidsolutions.com/stories</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pyramidsolutions.com/stories"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pyramidsolutions.com/stories"/>
+  </url>
+  <url>
+    <loc>https://pyramidsolutions.com/about</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pyramidsolutions.com/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pyramidsolutions.com/about"/>
+  </url>
+  <url>
+    <loc>https://pyramidsolutions.com/faq</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pyramidsolutions.com/faq"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pyramidsolutions.com/faq"/>
+  </url>
+  <url>
+    <loc>https://pyramidsolutions.com/contact</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pyramidsolutions.com/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pyramidsolutions.com/contact"/>
+  </url>
+</urlset>

@@ -24,7 +24,7 @@ def create_app():
     app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 3600  # 1 hour cache for static files
     app.config["TEMPLATES_AUTO_RELOAD"] = True
     app.config["SITE_NAME"] = "Pyramid Solutions"
-    app.config["SITE_URL"] = "https://pyramidsolutions.com"
+    app.config["SITE_URL"] = os.environ.get("SITE_URL", "https://pyramidsolutions.com")
     app.config["SITE_DESCRIPTION"] = "Premier HR consultancy offering HR Consulting, Recruitment, Executive Hiring, BPO, HR Outsourcing, and Professional Training services."
     app.config["DEFAULT_OG_IMAGE"] = "/static/images/og-default.jpg"
     app.config["TWITTER_HANDLE"] = "@pyramidsolutions"
