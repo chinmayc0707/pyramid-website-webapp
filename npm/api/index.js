@@ -138,7 +138,7 @@ const SITE_CONFIG = {
   contact: {
     email: 'hello@pyramidsolutions.com',
     phone: '+1 (555) 123-4567',
-    address: '123 Business Ave, Suite 400, San Francisco, CA 94105',
+    address: 'No. 02, 3rd Floor, "Kaushal Emerald", North Park Road, Kumara Park East, Opposite Gandhi Bhavan, Bengaluru – 560 001',
   },
   social: {
     linkedin: 'https://linkedin.com/company/pyramid-solutions',
@@ -460,11 +460,11 @@ function generateStructuredData(pageData, pageName) {
         telephone: SITE_CONFIG.contact.phone,
         address: {
           '@type': 'PostalAddress',
-          streetAddress: '123 Business Ave, Suite 400',
-          addressLocality: 'San Francisco',
-          addressRegion: 'CA',
-          postalCode: '94105',
-          addressCountry: 'US',
+          streetAddress: 'No. 02, 3rd Floor, "Kaushal Emerald", North Park Road, Kumara Park East, Opposite Gandhi Bhavan',
+          addressLocality: 'Bengaluru',
+          addressRegion: 'Karnataka',
+          postalCode: '560001',
+          addressCountry: 'IN',
         },
       },
     };

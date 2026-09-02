@@ -152,7 +152,7 @@ Yes, we have a global network of partners and can manage cross-border recruitmen
 
 - **Email:** hello@pyramidsolutions.com
 - **Phone:** +1 (555) 123-4567
-- **Address:** 123 Business Ave, Suite 400, San Francisco, CA 94105
+- **Address:** No. 02, 3rd Floor, "Kaushal Emerald", North Park Road, Kumara Park East, Opposite Gandhi Bhavan, Bengaluru – 560 001.
 
 ### Office Hours
 Monday – Friday: 9:00 AM – 6:00 PM PST

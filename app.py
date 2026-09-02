@@ -248,11 +248,11 @@ def create_app():
             },
             "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "123 Business Ave, Suite 400",
-                "addressLocality": "San Francisco",
-                "addressRegion": "CA",
-                "postalCode": "94105",
-                "addressCountry": "US",
+                "streetAddress": "No. 02, 3rd Floor, \"Kaushal Emerald\", North Park Road, Kumara Park East, Opposite Gandhi Bhavan",
+                "addressLocality": "Bengaluru",
+                "addressRegion": "Karnataka",
+                "postalCode": "560001",
+                "addressCountry": "IN",
             },
             "description": app.config["SITE_DESCRIPTION"],
         }
