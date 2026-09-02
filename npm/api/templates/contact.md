@@ -14,10 +14,11 @@ Let's start a conversation. Whether you have a specific challenge or want to exp
 **Response Time:** Within 2 business hours (9AM-6PM PST)
 
 ### Office Address
-**Pyramid Solutions HQ**
-123 Business Avenue, Suite 400
-San Francisco, CA 94105
-United States
+**Pyramid Solutions**
+No. 02, 3rd Floor, "Kaushal Emerald"
+North Park Road, Kumara Park East
+Opposite Gandhi Bhavan
+Bengaluru – 560 001
 
 ### Office Hours
 **Monday – Friday:** 9:00 AM – 6:00 PM PST
@@ -165,7 +166,7 @@ Send us a message and we'll get back to you promptly.
 | Location | Address | Phone |
 |----------|---------|-------|
 | **Singapore** | 8 Marina View, #35-01, Asia Square Tower 1, 018960 | +65 5555-0123 |
-| **Bangalore** | Embassy TechVillage, Marathahalli, Bangalore 560103 | +91 (80) 5555-0123 |
+| **Bengaluru** | No. 02, 3rd Floor, "Kaushal Emerald", North Park Road, Kumara Park East, Opposite Gandhi Bhavan, Bengaluru – 560 001 | +91 (80) 5555-0123 |
 | **Sydney** | Level 25, 1 Martin Place, Sydney NSW 2000 | +61 (2) 5555-0123 |
 | **Tokyo** | Marunouchi 1-6-5, Chiyoda-ku, Tokyo 100-0005 | +81 (3) 5555-0123 |
 | **Manila** | 30th Floor, One Ayala East Tower, Makati 1226 | +63 (2) 5555-0123 |
